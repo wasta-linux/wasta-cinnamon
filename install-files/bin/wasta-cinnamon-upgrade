@@ -1,0 +1,275 @@
+#!/bin/bash
+
+# ==============================================================================
+# wasta-cinnamon-upgrade: Provide standard way for users to upgrade Cinnamon
+#   to a newer version (using Wasta Cinnamon PPAs)
+#
+#   2022-01-26 rik: Initial jammy script
+#
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Check to ensure running as root
+# ------------------------------------------------------------------------------
+#   No fancy "double click" here because normal user should never need to run
+if [ $(id -u) -ne 0 ]
+then
+    echo
+    echo "You must run this script with sudo." >&2
+    echo "Exiting...."
+    sleep 5s
+    exit 1
+fi
+
+# ------------------------------------------------------------------------------
+# Initial Setup
+# ------------------------------------------------------------------------------
+
+DIR=/usr/share/wasta-cinnamon
+
+SERIES=$(lsb_release -sc)
+
+# if 'auto' parameter passed, run non-interactively
+if [ "$1" == "auto" ];
+then
+    AUTO="auto"
+    
+    # needed for apt-get
+    YES="--yes"
+    DEBIAN_NONINTERACTIVE="env DEBIAN_FRONTEND=noninteractive"
+    
+    # needed for gdebi
+    INTERACTIVE="-n"
+else
+    AUTO=""
+    YES=""
+    DEBIAN_NONINTERACTIVE=""
+    INTERACTIVE=""
+fi
+
+# ------------------------------------------------------------------------------
+# Initial prompt
+# ------------------------------------------------------------------------------
+echo
+echo "========================================================================="
+echo "=== Wasta-Linux Cinnamon Upgrade ========================================"
+echo "========================================================================="
+echo
+echo "This script will upgrade Cinnamon to a version provided by Wasta-Linux"
+echo "Cinnamon PPAs"
+echo
+echo "!!!Make sure Wasta-Offline is running if you want to use it!!!"
+echo
+if ! [ "$AUTO" ];
+then
+    echo "Close this window if you do not want to run this script."
+    echo
+    read -p "Press <Enter> to continue..."
+fi
+
+# ------------------------------------------------------------------------------
+# Configure apt sources
+# ------------------------------------------------------------------------------
+echo
+echo "*** Making adjustments to software repository sources"
+echo
+
+APT_SOURCES=/etc/apt/sources.list
+
+if ! [ -e $APT_SOURCES.wasta ];
+then
+    APT_SOURCES_D=/etc/apt/sources.list.d
+else
+    # wasta-offline active: adjust apt file locations
+    echo
+    echo "*** wasta-offline active, applying repository adjustments to /etc/apt/sources.list.wasta"
+    echo
+    APT_SOURCES=/etc/apt/sources.list.wasta
+    if [ "$(ls -A /etc/apt/sources.list.d)" ];
+    then
+        echo
+        echo "*** wasta-offline 'offline and internet' mode detected"
+        echo
+        # files inside /etc/apt/sources.list.d so it is active
+        # wasta-offline "offline and internet mode": no change to sources.list.d
+        APT_SOURCES_D=/etc/apt/sources.list.d
+    else
+        echo
+        echo "*** wasta-offline 'offline only' mode detected"
+        echo
+        # no files inside /etc/apt/sources.list.d
+        # wasta-offline "offline only mode": change to sources.list.d.wasta
+        APT_SOURCES_D=/etc/apt/sources.list.d.wasta
+    fi
+fi
+
+# add Wasta-Linux Cinnamon 4.8 PPA
+PPA_FILE="$APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-4-8-$SERIES.list"
+if ! [ -e $PPA_FILE ];
+then
+    echo
+    echo "*** Adding Cinnamon 4.8 PPA"
+    echo
+
+    echo "deb http://ppa.launchpad.net/wasta-linux/cinnamon-4-8/ubuntu $SERIES main" | \
+        tee $PPA_FILE
+    echo "# deb-src http://ppa.launchpad.net/wasta-linux/cinnamon-4-8/ubuntu $SERIES main" | \
+        tee -a $PPA_FILE
+else
+    # found, but ensure Wasta-Linux Cinnamon 4.8 PPA ACTIVE (user could have accidentally disabled)
+    # DO NOT match any lines ending in #wasta
+    sed -i -e '/#wasta$/! s@.*\(deb http://ppa.launchpad.net\)@\1@' $PPA_FILE
+fi
+
+# remove older PPAs
+rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-4-4*
+rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-4-6*
+
+# ------------------------------------------------------------------------------
+# Perform dist-upgrade
+# ------------------------------------------------------------------------------
+echo
+echo "*** Updating lists of available software"
+echo
+apt-get update
+
+# NOTE: for cinnamon 4.6, cinnamon needs to be upgraded before cinnamon-common
+#   or else there will be a file conflict
+$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon
+
+echo
+echo "*** Upgrading all installed software"
+echo
+$DEBIAN_NONINTERACTIVE apt-get $YES dist-upgrade
+
+echo
+echo "*** Ensuring newest cinnamon-layout installed"
+echo
+
+$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon-layout-4-6
+
+echo
+echo "*** Ensuring all Cinnamon components upgraded"
+echo
+$DEBIAN_NONINTERACTIVE apt-get $YES dist-upgrade
+
+# ensure wasta-cinnamon postinst changes applied (such as setting
+#   default menu-icon.svg)
+dpkg-reconfigure wasta-cinnamon
+
+# ------------------------------------------------------------------------------
+# Ensure cinnamon-layout-system updates applied
+# ------------------------------------------------------------------------------
+
+#first make sure app-adjustments applied (to customize cinnamon applets, etc.)
+APP_ADJ=/usr/share/wasta-multidesktop/scripts/app-adjustments.sh
+if [ -e "$APP_ADJ" ];
+then
+    bash $APP_ADJ || true;
+fi
+
+SCHEMAS_DIR=/usr/share/glib-2.0/schemas
+SYSTEM_LAYOUT="default"
+if [ -L $SCHEMAS_DIR/z_15_cinnamon-layout-redmond7.gschema.override ];
+then
+    SYSTEM_LAYOUT=redmond7
+elif [ -L $SCHEMAS_DIR/z_15_cinnamon-layout-unity.gschema.override ];
+then
+    SYSTEM_LAYOUT=unity
+elif [ -L $SCHEMAS_DIR/z_15_cinnamon-layout-cupertino.gschema.override ];
+then
+    SYSTEM_LAYOUT=cupertino
+elif [ -L $SCHEMAS_DIR/z_15_cinnamon-layout-widescreen.gschema.override ];
+then
+    SYSTEM_LAYOUT=widescreen
+elif [ -L $SCHEMAS_DIR/z_15_cinnamon-layout-gnome2.gschema.override ];
+then
+    SYSTEM_LAYOUT=gnome2
+elif [ -L $SCHEMAS_DIR/z_15_cinnamon-layout-traditional.gschema.override ];
+then
+    SYSTEM_LAYOUT=traditional
+fi
+
+echo
+echo "*** Running cinnamon-layout-system to ensure settings updated for layout: $SYSTEM_LAYOUT"
+echo
+cinnamon-layout-system $SYSTEM_LAYOUT
+
+# ------------------------------------------------------------------------------
+# Ensure cinnamon-layout updates applied for all users
+# ------------------------------------------------------------------------------
+for CINN_SETTINGS in /home/*/.cinnamon;
+do
+    # get user
+    CINN_OWNER=$(stat -c '%U' "$CINN_SETTINGS")
+    CINN_OWNER_ID=$(id -u $CINN_OWNER)
+
+    # determine current user layout
+    USER_LAYOUT=$SYSTEM_LAYOUT
+    CONFIG_FILE=/home/$CINN_OWNER/.config/cinnamon-layout/current-cinnamon-layout.txt
+
+    # until cinnamon 4.0, no user config file storing current user layout
+    if [ -e $CONFIG_FILE ];
+    then
+        USER_LAYOUT=$(cat $CONFIG_FILE)
+        echo
+        echo "*** Found existing cinnamon-layout for $CINN_OWNER: $USER_LAYOUT"
+        echo
+    fi
+
+    # below will run cinnamon-layout as different user, but FULL environment not
+    #   available so no known $DESKTOP_SESSION for example and thus won't
+    #   restart cinnamon
+    echo
+    echo "*** Running cinnamon-layout for $CINN_OWNER to ensure settings updated for layout: $USER_LAYOUT"
+    echo
+    sudo -Hu $CINN_OWNER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$CINN_OWNER_ID/bus \
+        cinnamon-layout $USER_LAYOUT
+done
+
+IS_CINNAMON=""
+IS_CINNAMON=$(wmctrl -m | grep -i Muffin)
+
+if [ "$IS_CINNAMON" ];
+then
+    echo
+    echo "*** Restarting Cinnamon ***"
+    echo
+
+    # restart cinnamon (doesn't seem to have a problem restarting as root)
+    # nohup cinnamon --replace &> /dev/null &
+
+    # give a few seconds before restarting Cinnamon
+    sleep 2s
+
+    sudo -Hu $SUDO_USER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$SUDO_UID/bus \
+         nohup cinnamon --replace &> /dev/null &
+
+    # give a few seconds for Cinnamon to finish restarting
+    sleep 2s
+
+    echo
+    echo "*** Cinnamon restarted ***"
+    echo
+else
+    # cinnamon NOT active, don't attempt restart
+    echo
+    echo "*** Cinnamon not active so no need to restart it"
+    echo
+fi
+
+# ------------------------------------------------------------------------------
+# installing thunar to use as bulk rename tool in nemo
+# ------------------------------------------------------------------------------
+$DEBIAN_NONINTERACTIVE apt-get $YES install --no-install-recommends \
+    thunar thunar-media-tags-plugin
+
+# ------------------------------------------------------------------------------
+# Finished
+# ------------------------------------------------------------------------------
+printf "\n\n\n\n\n\n"
+echo "========================================================================="
+echo "=== Script Finished ====================================================="
+echo "========================================================================="
+
+exit 0

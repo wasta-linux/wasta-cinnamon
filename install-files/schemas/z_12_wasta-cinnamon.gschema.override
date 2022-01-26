@@ -1,0 +1,208 @@
+# z_11_wasta-cinnamon.gschema.override
+#
+#   If same key overridden in 2 files, "last wins" regarding filenames
+#       (so a "z_10_*" filename would win over a "10_*" filename)
+#
+# enabled-applets numbers:
+#   (will show as #.json in user's ~/.cinnamon/configs/applet-name/ folder)
+#
+#   menu@cinnamon.org:101
+#   show-desktop@cinnamon.org:102
+#   panel-launchers@cinnamon.org:103
+#   scale@cinnamon.org:104
+#   window-list@cinnamon.org:105
+#   removable-drives@cinnamon.org:106
+#   inhibit@cinnamon.org:107
+#   systray@cinnamon.org:108
+#   bluetooth@cinnamon.org:109
+#   network@cinnamon.org:110
+#   sound@cinnamon.org:111
+#   power@cinnamon.org:112
+#   calendar@simonwiles.net:113
+#   windows-quick-list@cinnamon.org:114
+#   IcingTaskManager@json:115
+#   user@cinnamon.org:116
+#   trash@cinnamon.org:117
+#   calendar@cinnamon.org:118
+#   notifications@cinnamon.org:119
+#   grouped-window-list@cinnamon.org:120
+#
+#   After modifying these .override files, reload with:
+#       glib-compile-schemas /usr/share/glib-2.0/schemas/
+#
+#   2018-04-04 rik: initial settings for bionic. Only backgrounds for now
+#       as all main cinnamon settings are set in wasta-cinnamon-layout
+#   2019-12-13 rik: restoring all wasta-specific cinnamon settings, as
+#       cinnamon-layout does not provide defaults anymore so that other
+#       distros can apply their own branding
+#   2020-04-12 rik: adding app-menu-label and app-menu-icon-name
+#   2020-07-07 rik: making redmond7 settings as default here
+#   2020-09-02 rik: correct panel-zone-icon-sizes for ibus (24px)
+#
+# ==============================================================================
+
+[org.cinnamon]
+alttab-switcher-style = 'icons+thumbnails'
+app-menu-icon-name = 'wasta-linux-main-menu'
+app-menu-label = 'Menu'
+cinnamon-settings-advanced = false
+desktop-effects = false
+desktop-effects-close-effect = 'none'
+desktop-effects-map-effect = 'none'
+enable-indicators = false
+enabled-applets = ['panel1:left:1:menu@cinnamon.org:101', 'panel1:left:2:show-desktop@cinnamon.org:102', 'panel1:left:3:grouped-window-list@cinnamon.org:120', 'panel1:right:0:keyboard@cinnamon.org:124', 'panel1:right:1:removable-drives@cinnamon.org:106', 'panel1:right:2:inhibit@cinnamon.org:107', 'panel1:right:3:systray@cinnamon.org:108', 'panel1:right:4:bluetooth@cinnamon.org:109', 'panel1:right:5:network@cinnamon.org:110', 'panel1:right:6:sound@cinnamon.org:111', 'panel1:right:7:power@cinnamon.org:112', 'panel1:right:8:calendar@simonwiles.net:113', 'panel1:right:9:windows-quick-list@cinnamon.org:114']
+enabled-extensions = []
+favorite-apps = ['firefox.desktop', 'nemo.desktop', 'cinnamon-settings.desktop']
+overview-corner = ['false:false:false', 'false:false:false', 'false:false:false', 'false:false:false']
+panel-edit-mode = false
+panel-zone-icon-sizes = '[{"panelId":1,"left":0,"center":0,"right":24}]'
+panel-zone-symbolic-icon-sizes = '[{"panelId":1,"left":0,"center":0,"right":16}]'
+panels-autohide = ['1:false']
+panels-enabled = ['1:0:bottom']
+panels-height = ['1:36']
+panels-hide-delay = ['1:0']
+panels-show-delay = ['1:0']
+show-snap-osd = false
+startup-animation = false
+workspace-expo-view-as-grid = true
+
+[org.cinnamon.desktop.background]
+picture-uri = 'file:///usr/share/backgrounds/wasta/fabien-bazanegue-unsplash-wasta.jpg'
+
+[org.cinnamon.desktop.interface]
+clock-show-date = true
+clock-use-24h = false
+cursor-theme = 'DMZ-White'
+font-name = 'Ubuntu 11'
+gtk-overlay-scrollbars = false
+gtk-theme = 'Arc-Darker'
+icon-theme = 'ePapirus'
+
+[org.cinnamon.desktop.lockdown]
+disable-user-switching = true
+
+[org.cinnamon.desktop.media-handling]
+automount = true
+automount-open = false
+
+[org.cinnamon.desktop.privacy]
+remember-recent-files = true
+recent-files-max-age = 30
+
+[org.cinnamon.desktop.screensaver]
+ask-for-away-message = false
+date-format = '%B %e, %Y'
+font-date = 'Ubuntu 24'
+font-message = 'Ubuntu 14'
+font-time = 'Ubuntu 64'
+lock-enabled = false
+time-format = '%l:%M %p'
+
+[org.cinnamon.desktop.session]
+settings-daemon-uses-logind = true
+session-manager-uses-logind = true
+
+[org.cinnamon.desktop.sound]
+event-sounds = false
+theme-name = 'freedesktop'
+volume-sound-enabled = true
+volume-sound-file = '/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga'
+
+[org.cinnamon.desktop.wm.preferences]
+button-layout = ':minimize,maximize,close'
+theme = 'Arc-Darker'
+titlebar-font = 'Ubuntu Bold 11'
+
+[org.cinnamon.muffin]
+edge-tiling = true
+
+[org.cinnamon.sounds]
+close-enabled = false
+login-enabled = false
+logout-enabled = false
+map-enabled = false
+maximize-enabled = false
+minimize-enabled = false
+plug-enabled = true
+plug-file = '/usr/share/sounds/freedesktop/stereo/device-added.oga'
+switch-enabled = false
+tile-enabled = false
+unmaximize-enabled = false
+unplug-enabled = true
+unplug-file = '/usr/share/sounds/freedesktop/stereo/device-removed.oga'
+
+[org.cinnamon.settings-daemon.peripherals.touchpad]
+disable-while-typing = true
+natural-scroll = false
+tap-to-click = true
+scrolling-method = 3
+
+[org.cinnamon.settings-daemon.plugins.media-keys]
+home = '<Super>e'
+
+[org.cinnamon.settings-daemon.plugins.power]
+button-power = 'interactive'
+critical-battery-action = 'suspend'
+lid-close-suspend-with-external-monitor = true
+lock-on-suspend = false
+percentage-action = 5
+percentage-critical = 10
+sleep-display-battery = 1200
+sleep-inactive-battery-timeout = 1800
+use-time-for-policy = false
+
+[org.cinnamon.settings-daemon.plugins.xsettings]
+buttons-have-icons = false
+menus-have-icons = true
+
+[org.cinnamon.theme]
+name = 'Arc-Dark-Wasta'
+symbolic-relative-size = 0.67
+
+[org.freedesktop.ibus.general]
+use-system-keyboard-layout = false
+
+[org.freedesktop.ibus.general.hotkey]
+triggers = ['<Control>space']
+
+[org.freedesktop.ibus.panel]
+custom-font = 'Ubuntu 11'
+xkb-icon-rgba = '#FFFFFF'
+use-custom-font = true
+
+[org.gnome.desktop.background]
+picture-uri = 'file:///usr/share/backgrounds/wasta/fabien-bazanegue-unsplash-wasta.jpg'
+
+[org.gtk.Settings.FileChooser]
+sort-directories-first = true
+
+[org.nemo.desktop]
+computer-icon-visible = false
+desktop-layout = 'true::false'
+font = 'Ubuntu 10'
+home-icon-visible = false
+network-icon-visible = false
+trash-icon-visible = false
+use-desktop-grid = false
+volumes-visible = true
+
+[org.nemo.icon-view]
+default-zoom-level = 'standard'
+
+[org.nemo.preferences]
+bulk-rename-tool = b'thunar -B'
+context-menus-show-all-actions = true
+date-format = 'iso'
+default-sort-order = 'name'
+enable-delete = false
+ignore-view-metadata = true
+show-hidden-files = false
+show-location-entry = false
+show-reload-icon-toolbar = true
+thumbnail-limit = uint64 4294967295
+
+[org.nemo.window-state]
+sidebar-width = 165
+side-pane-view = 'places'
+start-with-sidebar = true
+start-with-status-bar = true
