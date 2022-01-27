@@ -38,6 +38,9 @@
 #   2020-04-12 rik: adding app-menu-label and app-menu-icon-name
 #   2020-07-07 rik: making redmond7 settings as default here
 #   2020-09-02 rik: correct panel-zone-icon-sizes for ibus (24px)
+#   2022-01-27 rik: updating desktop effects keys for cinnamon 5.2.x
+#       - add slick-greeter settings here (wasta-multidesktop does NOT assume
+#       lightdm anymore.
 #
 # ==============================================================================
 
@@ -46,9 +49,8 @@ alttab-switcher-style = 'icons+thumbnails'
 app-menu-icon-name = 'wasta-linux-main-menu'
 app-menu-label = 'Menu'
 cinnamon-settings-advanced = false
-desktop-effects = false
-desktop-effects-close-effect = 'none'
-desktop-effects-map-effect = 'none'
+#desktop-effects-close = 'none'
+#desktop-effects-map = 'none'
 enable-indicators = false
 enabled-applets = ['panel1:left:1:menu@cinnamon.org:101', 'panel1:left:2:show-desktop@cinnamon.org:102', 'panel1:left:3:grouped-window-list@cinnamon.org:120', 'panel1:right:0:keyboard@cinnamon.org:124', 'panel1:right:1:removable-drives@cinnamon.org:106', 'panel1:right:2:inhibit@cinnamon.org:107', 'panel1:right:3:systray@cinnamon.org:108', 'panel1:right:4:bluetooth@cinnamon.org:109', 'panel1:right:5:network@cinnamon.org:110', 'panel1:right:6:sound@cinnamon.org:111', 'panel1:right:7:power@cinnamon.org:112', 'panel1:right:8:calendar@simonwiles.net:113', 'panel1:right:9:windows-quick-list@cinnamon.org:114']
 enabled-extensions = []
@@ -114,6 +116,7 @@ theme = 'Arc-Darker'
 titlebar-font = 'Ubuntu Bold 11'
 
 [org.cinnamon.muffin]
+#desktop-effects = false
 edge-tiling = true
 
 [org.cinnamon.sounds]
@@ -206,3 +209,15 @@ sidebar-width = 165
 side-pane-view = 'places'
 start-with-sidebar = true
 start-with-status-bar = true
+
+[x.dm.slick-greeter]
+background = ''
+background-color = '#30343A'
+draw-grid = true
+draw-user-backgrounds = true
+font-name = 'Ubuntu 11'
+icon-theme-name = 'ePapirus'
+logo = '/usr/share/wasta-multidesktop/resources/wasta-linux.png'
+other-monitors-logo = '/usr/share/icons/hicolor/scalable/apps/wasta-linux.svg'
+play-ready-sound = ''
+theme-name = 'Arc-Darker'
