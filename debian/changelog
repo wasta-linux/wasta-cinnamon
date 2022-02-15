@@ -1,3 +1,9 @@
+wasta-cinnamon (5.2.0.3) jammy; urgency=medium
+
+  * relocate slick-greeter settings to wasta-multidesktop
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Mon, 14 Feb 2022 19:07:00 -0600
+
 wasta-cinnamon (5.2.0.2) jammy; urgency=medium
 
   * correcting some gschema keys for 5.2.x

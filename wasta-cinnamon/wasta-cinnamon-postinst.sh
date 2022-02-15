@@ -63,7 +63,7 @@ echo
 
 # MAIN System schemas: we have placed our override file in this directory
 # Sending any "error" to null (if key not found don't want to worry user)
-glib-compile-schemas /usr/share/glib-2.0/schemas/ > /dev/null 2>&1 || true;
+glib-compile-schemas /usr/share/glib-2.0/schemas/ # > /dev/null 2>&1 || true;
 
 # ------------------------------------------------------------------------------
 # Finished

@@ -209,15 +209,3 @@ sidebar-width = 165
 side-pane-view = 'places'
 start-with-sidebar = true
 start-with-status-bar = true
-
-[x.dm.slick-greeter]
-background = ''
-background-color = '#30343A'
-draw-grid = true
-draw-user-backgrounds = true
-font-name = 'Ubuntu 11'
-icon-theme-name = 'ePapirus'
-logo = '/usr/share/wasta-multidesktop/resources/wasta-linux.png'
-other-monitors-logo = '/usr/share/icons/hicolor/scalable/apps/wasta-linux.svg'
-play-ready-sound = ''
-theme-name = 'Arc-Darker'
