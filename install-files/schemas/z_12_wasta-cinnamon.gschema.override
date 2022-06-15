@@ -40,13 +40,14 @@
 #   2020-09-02 rik: correct panel-zone-icon-sizes for ibus (24px)
 #   2022-01-27 rik: updating desktop effects keys for cinnamon 5.2.x
 #       - add slick-greeter settings here (wasta-multidesktop does NOT assume
-#       lightdm anymore.
+#       lightdm anymore.)
 #
 # ==============================================================================
 
 [org.cinnamon]
 alttab-switcher-style = 'icons+thumbnails'
 app-menu-icon-name = 'wasta-linux-main-menu'
+# NOTE: app-menu-label set to '' or not via cinnamon-layout logic.
 app-menu-label = 'Menu'
 cinnamon-settings-advanced = false
 #desktop-effects-close = 'none'
@@ -69,7 +70,7 @@ startup-animation = false
 workspace-expo-view-as-grid = true
 
 [org.cinnamon.desktop.background]
-picture-uri = 'file:///usr/share/backgrounds/wasta/fabien-bazanegue-unsplash-wasta.jpg'
+picture-uri = 'file:///usr/share/backgrounds/wasta/wasta-trianglify.png'
 
 [org.cinnamon.desktop.interface]
 clock-show-date = true
@@ -173,9 +174,6 @@ custom-font = 'Ubuntu 11'
 xkb-icon-rgba = '#FFFFFF'
 use-custom-font = true
 
-[org.gnome.desktop.background]
-picture-uri = 'file:///usr/share/backgrounds/wasta/fabien-bazanegue-unsplash-wasta.jpg'
-
 [org.gtk.Settings.FileChooser]
 sort-directories-first = true
 
@@ -209,3 +207,15 @@ sidebar-width = 165
 side-pane-view = 'places'
 start-with-sidebar = true
 start-with-status-bar = true
+
+[x.dm.slick-greeter]
+background = ''
+background-color = '#30343A'
+draw-grid = true
+draw-user-backgrounds = true
+font-name = 'Ubuntu 11'
+icon-theme-name = 'ePapirus'
+logo = '/usr/share/wasta-multidesktop/resources/wasta-linux.png'
+other-monitors-logo = '/usr/share/icons/hicolor/scalable/apps/wasta-linux.svg'
+play-ready-sound = ''
+theme-name = 'Arc-Darker'
