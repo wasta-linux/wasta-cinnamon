@@ -202,6 +202,10 @@ show-location-entry = false
 show-reload-icon-toolbar = true
 thumbnail-limit = uint64 4294967295
 
+[org.nemo.preferences.menu-config]
+selection-menu-copy-to = true
+selection-menu-move-to = true
+
 [org.nemo.window-state]
 sidebar-width = 165
 side-pane-view = 'places'

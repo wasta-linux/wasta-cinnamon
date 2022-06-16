@@ -1,3 +1,10 @@
+wasta-cinnamon (5.2.0.6) jammy; urgency=medium
+
+  * schemas: add "copy to" and "move to" to nemo right-click
+  * nemo actions: add "Send by email..."
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Thu, 16 Jun 2022 13:59:14 -0500
+
 wasta-cinnamon (5.2.0.5) jammy; urgency=medium
 
   * update slick-greeter schema to use Arc-Dark for text color
