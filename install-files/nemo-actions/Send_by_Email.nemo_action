@@ -7,7 +7,7 @@ Comment=Attach selected files to a new email message
 #to support spaces, in 14.04, use EscapeSpaces=true
 #to support spaces, in 12.04 use Quote=double
 #if Quote=double causes a problem, document why here.
-Exec=/home/akiverson/.local/share/nemo/actions/Send_by_Email.sh %F
+Exec=/usr/share/nemo/actions/Send_by_Email.sh %F
 Icon-Name=email
 Selection=Any
 #EscapeSpaces: 14.04 command only.  replaces Quote.
