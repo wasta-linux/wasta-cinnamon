@@ -50,6 +50,7 @@ app-menu-icon-name = 'wasta-linux-main-menu'
 # NOTE: app-menu-label set to '' or not via cinnamon-layout logic.
 app-menu-label = 'Menu'
 cinnamon-settings-advanced = false
+desktop-effects = false
 #desktop-effects-close = 'none'
 #desktop-effects-map = 'none'
 enable-indicators = false
@@ -117,7 +118,6 @@ theme = 'Arc-Darker'
 titlebar-font = 'Ubuntu Bold 11'
 
 [org.cinnamon.muffin]
-#desktop-effects = false
 edge-tiling = true
 
 [org.cinnamon.sounds]

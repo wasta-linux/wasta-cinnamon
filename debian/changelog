@@ -1,3 +1,9 @@
+wasta-cinnamon (5.4.0) jammy; urgency=medium
+
+  * adding cinnamon 5.4 migration logic
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Thu, 18 Aug 2022 10:25:24 -0500
+
 wasta-cinnamon (5.2.0.10) jammy; urgency=medium
 
   * relocate lightdm conf to 99-wasta-cinnamon for wasta default

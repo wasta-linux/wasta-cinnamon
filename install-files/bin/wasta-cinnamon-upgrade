@@ -5,6 +5,7 @@
 #   to a newer version (using Wasta Cinnamon PPAs)
 #
 #   2022-01-26 rik: Initial jammy script
+#   2022-08-18 rik: Updating for Cinnamon 5.4 install logic
 #
 # ==============================================================================
 
@@ -103,27 +104,26 @@ else
     fi
 fi
 
-# add Wasta-Linux Cinnamon 4.8 PPA
-PPA_FILE="$APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-4-8-$SERIES.list"
+# add Wasta-Linux Cinnamon 5.4 PPA
+PPA_FILE="$APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-5-4-$SERIES.list"
 if ! [ -e $PPA_FILE ];
 then
     echo
-    echo "*** Adding Cinnamon 4.8 PPA"
+    echo "*** Adding Cinnamon 5.4 PPA"
     echo
 
-    echo "deb http://ppa.launchpad.net/wasta-linux/cinnamon-4-8/ubuntu $SERIES main" | \
+    echo "deb http://ppa.launchpadcontent.net/wasta-linux/cinnamon-5-4/ubuntu $SERIES main" | \
         tee $PPA_FILE
-    echo "# deb-src http://ppa.launchpad.net/wasta-linux/cinnamon-4-8/ubuntu $SERIES main" | \
+    echo "# deb-src http://ppa.launchpad.net/wasta-linux/cinnamon-5-4/ubuntu $SERIES main" | \
         tee -a $PPA_FILE
 else
-    # found, but ensure Wasta-Linux Cinnamon 4.8 PPA ACTIVE (user could have accidentally disabled)
+    # found, but ensure Wasta-Linux Cinnamon 5.4 PPA ACTIVE (user could have accidentally disabled)
     # DO NOT match any lines ending in #wasta
-    sed -i -e '/#wasta$/! s@.*\(deb http://ppa.launchpad.net\)@\1@' $PPA_FILE
+    sed -i -e '/#wasta$/! s@.*\(deb http://ppa.launchpadcontent.net\)@\1@' $PPA_FILE
 fi
 
 # remove older PPAs
-rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-4-4*
-rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-4-6*
+#rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-5-2*
 
 # ------------------------------------------------------------------------------
 # Perform dist-upgrade
@@ -133,9 +133,9 @@ echo "*** Updating lists of available software"
 echo
 apt-get update
 
-# NOTE: for cinnamon 4.6, cinnamon needs to be upgraded before cinnamon-common
+# NOTE: for cinnamon 5.4, cinnamon-common needs to be upgraded before cinnamon
 #   or else there will be a file conflict
-$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon
+$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon-common
 
 echo
 echo "*** Upgrading all installed software"
@@ -146,7 +146,7 @@ echo
 echo "*** Ensuring newest cinnamon-layout installed"
 echo
 
-$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon-layout-4-6
+$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon-layout-5-4
 
 echo
 echo "*** Ensuring all Cinnamon components upgraded"
