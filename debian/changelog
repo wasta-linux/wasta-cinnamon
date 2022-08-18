@@ -1,3 +1,9 @@
+wasta-cinnamon (5.4.2) jammy; urgency=medium
+
+  * update depends for differing cinnamon-layout versions
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Thu, 18 Aug 2022 17:00:03 -0500
+
 wasta-cinnamon (5.4.1) jammy; urgency=medium
 
   * wasta-cinnamon-upgrade:rework cinnamon restart logic
