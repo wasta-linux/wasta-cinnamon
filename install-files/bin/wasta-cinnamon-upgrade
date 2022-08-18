@@ -114,7 +114,7 @@ then
 
     echo "deb http://ppa.launchpadcontent.net/wasta-linux/cinnamon-5-4/ubuntu $SERIES main" | \
         tee $PPA_FILE
-    echo "# deb-src http://ppa.launchpad.net/wasta-linux/cinnamon-5-4/ubuntu $SERIES main" | \
+    echo "# deb-src http://ppa.launchpadcontent.net/wasta-linux/cinnamon-5-4/ubuntu $SERIES main" | \
         tee -a $PPA_FILE
 else
     # found, but ensure Wasta-Linux Cinnamon 5.4 PPA ACTIVE (user could have accidentally disabled)
@@ -227,34 +227,48 @@ do
         cinnamon-layout $USER_LAYOUT
 done
 
-IS_CINNAMON=""
-IS_CINNAMON=$(wmctrl -m | grep -i Muffin)
+CURR_SESSION_ID=""
+CURR_SESSION_ID=$(loginctl show-user $SUDO_UID | grep Display= | sed s/Display=//)
+echo
+echo "*** current session id for $SUDO_USER: $CURR_SESSION_ID"
+echo
 
-if [ "$IS_CINNAMON" ];
-then
+# check session data
+if [[ "$CURR_SESSION_ID" ]]; then
+    CURR_SESSION=$(loginctl show-session $CURR_SESSION_ID | grep Desktop= | sed s/Desktop=//)
     echo
-    echo "*** Restarting Cinnamon ***"
+    echo "*** current session for $SUDO_USER: $CURR_SESSION"
     echo
+    if [[ "$CURR_SESSION" == cinnamon* ]]; then
+        # cinnamon graphical session - restart - could be cinnamon or cinnamon2d
+        echo
+        echo "*** Restarting Cinnamon ***"
+        echo
+        # restart cinnamon (doesn't seem to have a problem restarting as root)
+        # nohup cinnamon --replace &> /dev/null &
 
-    # restart cinnamon (doesn't seem to have a problem restarting as root)
-    # nohup cinnamon --replace &> /dev/null &
+        # give a few seconds before restarting Cinnamon
+        sleep 2s
 
-    # give a few seconds before restarting Cinnamon
-    sleep 2s
+        sudo -Hu $SUDO_USER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$SUDO_UID/bus \
+            nohup cinnamon --replace &> /dev/null &
 
-    sudo -Hu $SUDO_USER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$SUDO_UID/bus \
-         nohup cinnamon --replace &> /dev/null &
+        # give a few seconds for Cinnamon to finish restarting
+        sleep 2s
 
-    # give a few seconds for Cinnamon to finish restarting
-    sleep 2s
-
-    echo
-    echo "*** Cinnamon restarted ***"
-    echo
+        echo
+        echo "*** Cinnamon restarted ***"
+        echo
+    else
+        # graphical session but NOT cinnamon, don't attempt restart
+        echo
+        echo "*** Active session is NOT Cinnamon, no need to restart it"
+        echo
+    fi
 else
-    # cinnamon NOT active, don't attempt restart
+    # no session id, so not graphical and don't need to restart cinnamon
     echo
-    echo "*** Cinnamon not active so no need to restart it"
+    echo "*** No graphical session, no need to restart Cinnamon"
     echo
 fi
 

@@ -1,3 +1,9 @@
+wasta-cinnamon (5.4.1) jammy; urgency=medium
+
+  * wasta-cinnamon-upgrade:rework cinnamon restart logic
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Thu, 18 Aug 2022 16:17:44 -0500
+
 wasta-cinnamon (5.4.0) jammy; urgency=medium
 
   * adding cinnamon 5.4 migration logic
