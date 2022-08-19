@@ -133,20 +133,31 @@ echo "*** Updating lists of available software"
 echo
 apt-get update
 
+echo
+echo "*** Removing old Cinnamon version"
+echo
+
 # NOTE: for cinnamon 5.4, cinnamon-common needs to be upgraded before cinnamon
-#   or else there will be a file conflict
-$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon-common
+#   or else there will be a file conflict. But since cinnamon-common can't be
+#   upgraded w/o upgraded cinnamon, easiest to just remove cinnamon first.
+$DEBIAN_NONINTERACTIVE apt-get $YES purge cinnamon
 
 echo
-echo "*** Upgrading all installed software"
-echo
-$DEBIAN_NONINTERACTIVE apt-get $YES dist-upgrade
-
-echo
-echo "*** Ensuring newest cinnamon-layout installed"
+echo "*** Installing new Cinnamon version"
 echo
 
-$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon-layout-5-4
+$DEBIAN_NONINTERACTIVE apt-get $YES install wasta-cinnamon cinnamon-layout-5-4
+
+#echo
+#echo "*** Upgrading all installed software"
+#echo
+#$DEBIAN_NONINTERACTIVE apt-get $YES dist-upgrade
+
+#echo
+#echo "*** Ensuring newest cinnamon-layout installed"
+#echo
+
+#$DEBIAN_NONINTERACTIVE apt-get $YES install cinnamon-layout-5-4
 
 echo
 echo "*** Ensuring all Cinnamon components upgraded"
