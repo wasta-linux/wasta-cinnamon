@@ -228,9 +228,6 @@ do
         echo
     fi
 
-    # below will run cinnamon-layout as different user, but FULL environment not
-    #   available so no known $DESKTOP_SESSION for example and thus won't
-    #   restart cinnamon
     echo
     echo "*** Running cinnamon-layout for $CINN_OWNER to ensure settings updated for layout: $USER_LAYOUT"
     echo
@@ -238,50 +235,52 @@ do
         cinnamon-layout $USER_LAYOUT
 done
 
-CURR_SESSION_ID=""
-CURR_SESSION_ID=$(loginctl show-user $SUDO_UID | grep Display= | sed s/Display=//)
-echo
-echo "*** current session id for $SUDO_USER: $CURR_SESSION_ID"
-echo
+# delete: restarting cinnamon now correctly?? done by cinnamon-layout
 
+#CURR_SESSION_ID=""
+#CURR_SESSION_ID=$(loginctl show-user $SUDO_UID | grep Display= | sed s/Display=//)
+#echo
+#echo "*** current session id for $SUDO_USER: $CURR_SESSION_ID"
+#echo
+#
 # check session data
-if [[ "$CURR_SESSION_ID" ]]; then
-    CURR_SESSION=$(loginctl show-session $CURR_SESSION_ID | grep Desktop= | sed s/Desktop=//)
-    echo
-    echo "*** current session for $SUDO_USER: $CURR_SESSION"
-    echo
-    if [[ "$CURR_SESSION" == cinnamon* ]]; then
-        # cinnamon graphical session - restart - could be cinnamon or cinnamon2d
-        echo
-        echo "*** Restarting Cinnamon ***"
-        echo
-        # restart cinnamon (doesn't seem to have a problem restarting as root)
-        # nohup cinnamon --replace &> /dev/null &
+#if [[ "$CURR_SESSION_ID" ]]; then
+#    CURR_SESSION=$(loginctl show-session $CURR_SESSION_ID | grep Desktop= | sed s/Desktop=//)
+#    echo
+#    echo "*** current session for $SUDO_USER: $CURR_SESSION"
+#    echo
+#    if [[ "$CURR_SESSION" == cinnamon* ]]; then
+#        # cinnamon graphical session - restart - could be cinnamon or cinnamon2d
+#        echo
+#        echo "*** Restarting Cinnamon ***"
+#        echo
+#        # restart cinnamon (doesn't seem to have a problem restarting as root)
+#        # nohup cinnamon --replace &> /dev/null &
 
-        # give a few seconds before restarting Cinnamon
-        sleep 2s
+#        # give a few seconds before restarting Cinnamon
+#        sleep 2s
 
-        sudo -Hu $SUDO_USER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$SUDO_UID/bus \
-            nohup cinnamon --replace &> /dev/null &
+#        sudo -Hu $SUDO_USER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$SUDO_UID/bus \
+#            nohup cinnamon --replace &> /dev/null &
 
-        # give a few seconds for Cinnamon to finish restarting
-        sleep 2s
+#        # give a few seconds for Cinnamon to finish restarting
+#        sleep 2s
 
-        echo
-        echo "*** Cinnamon restarted ***"
-        echo
-    else
-        # graphical session but NOT cinnamon, don't attempt restart
-        echo
-        echo "*** Active session is NOT Cinnamon, no need to restart it"
-        echo
-    fi
-else
-    # no session id, so not graphical and don't need to restart cinnamon
-    echo
-    echo "*** No graphical session, no need to restart Cinnamon"
-    echo
-fi
+#        echo
+#        echo "*** Cinnamon restarted ***"
+#        echo
+#    else
+#        # graphical session but NOT cinnamon, don't attempt restart
+#        echo
+#        echo "*** Active session is NOT Cinnamon, no need to restart it"
+#        echo
+#    fi
+#else
+#    # no session id, so not graphical and don't need to restart cinnamon
+#    echo
+#    echo "*** No graphical session, no need to restart Cinnamon"
+#    echo
+#fi
 
 # ------------------------------------------------------------------------------
 # installing thunar to use as bulk rename tool in nemo

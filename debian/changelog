@@ -1,3 +1,10 @@
+wasta-cinnamon (5.4.4) jammy; urgency=medium
+
+  * wasta-cinnamon-upgrade: don't need to restart cinnamon: now
+    being done correctly by cinnamon-layout
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Sat, 20 Aug 2022 19:56:15 -0500
+
 wasta-cinnamon (5.4.3) jammy; urgency=medium
 
   * wasta-cinnamon-upgrade: need to remove cinnamon 5.2 before
