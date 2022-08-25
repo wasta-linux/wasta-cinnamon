@@ -15,11 +15,11 @@
 #   No fancy "double click" here because normal user should never need to run
 if [ $(id -u) -ne 0 ]
 then
-	echo
-	echo "You must run this script with sudo." >&2
-	echo "Exiting...."
-	sleep 5s
-	exit 1
+    echo
+    echo "You must run this script with sudo." >&2
+    echo "Exiting...."
+    sleep 5s
+    exit 1
 fi
 
 # ------------------------------------------------------------------------------
@@ -36,6 +36,23 @@ LAYOUT_DIR=/usr/share/cinnamon-layout
 
 # Reconfigure wasta-multidesktop so that login sessions are correctly displayed.
 dpkg-reconfigure wasta-multidesktop
+
+# ------------------------------------------------------------------------------
+# Apply default cinnamon-layout-system IF none detected
+# ------------------------------------------------------------------------------
+# not using a Cinnamon-Layout means "default" and Wasta default is to use
+#   cinnamon-layout-system redmond7
+
+SYSTEM_LAYOUT=$(find /usr/share/glib-2.0/schemas/ -maxdepth 1 -type l \
+    -name "z_15_cinnamon-layout*" 2>/dev/null)
+
+if [[ -z "$SYSTEM_LAYOUT" ]]
+then
+    echo
+    echo "*** Applying cinnamon-layout-system redmond7"
+    echo
+    cinnamon-layout-system redmond7
+fi
 
 # ------------------------------------------------------------------------------
 # Dconf / Gsettings Default Value adjustments

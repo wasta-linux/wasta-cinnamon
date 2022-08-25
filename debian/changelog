@@ -1,3 +1,9 @@
+wasta-cinnamon (5.4.5) jammy; urgency=medium
+
+  * postinst: apply redmond7 layout if no cinnamon-layout detected
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Thu, 25 Aug 2022 12:58:36 -0500
+
 wasta-cinnamon (5.4.4) jammy; urgency=medium
 
   * wasta-cinnamon-upgrade: don't need to restart cinnamon: now

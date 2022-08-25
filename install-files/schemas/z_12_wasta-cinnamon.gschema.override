@@ -41,6 +41,8 @@
 #   2022-01-27 rik: updating desktop effects keys for cinnamon 5.2.x
 #       - add slick-greeter settings here (wasta-multidesktop does NOT assume
 #       lightdm anymore.)
+#   2022-08-25 rik: removing redundant settings as cinnamon-layout-system
+#       redmond7 is now applied as wasta default
 #
 # ==============================================================================
 
@@ -54,18 +56,18 @@ desktop-effects = false
 #desktop-effects-close = 'none'
 #desktop-effects-map = 'none'
 enable-indicators = false
-enabled-applets = ['panel1:left:1:menu@cinnamon.org:101', 'panel1:left:2:show-desktop@cinnamon.org:102', 'panel1:left:3:grouped-window-list@cinnamon.org:120', 'panel1:right:0:keyboard@cinnamon.org:124', 'panel1:right:1:removable-drives@cinnamon.org:106', 'panel1:right:2:inhibit@cinnamon.org:107', 'panel1:right:3:systray@cinnamon.org:108', 'panel1:right:4:bluetooth@cinnamon.org:109', 'panel1:right:5:network@cinnamon.org:110', 'panel1:right:6:sound@cinnamon.org:111', 'panel1:right:7:power@cinnamon.org:112', 'panel1:right:8:calendar@simonwiles.net:113', 'panel1:right:9:windows-quick-list@cinnamon.org:114']
-enabled-extensions = []
+#enabled-applets = ['panel1:left:1:menu@cinnamon.org:101', 'panel1:left:2:show-desktop@cinnamon.org:102', 'panel1:left:3:grouped-window-list@cinnamon.org:120', 'panel1:right:0:keyboard@cinnamon.org:124', 'panel1:right:1:removable-drives@cinnamon.org:106', 'panel1:right:2:inhibit@cinnamon.org:107', 'panel1:right:3:systray@cinnamon.org:108', 'panel1:right:4:bluetooth@cinnamon.org:109', 'panel1:right:5:network@cinnamon.org:110', 'panel1:right:6:sound@cinnamon.org:111', 'panel1:right:7:power@cinnamon.org:112', 'panel1:right:8:calendar@simonwiles.net:113', 'panel1:right:9:windows-quick-list@cinnamon.org:114']
+#enabled-extensions = []
 favorite-apps = ['firefox-esr.desktop', 'nemo.desktop', 'cinnamon-settings.desktop']
 overview-corner = ['false:false:false', 'false:false:false', 'false:false:false', 'false:false:false']
 panel-edit-mode = false
-panel-zone-icon-sizes = '[{"panelId":1,"left":0,"center":0,"right":24}]'
-panel-zone-symbolic-icon-sizes = '[{"panelId":1,"left":0,"center":0,"right":16}]'
-panels-autohide = ['1:false']
-panels-enabled = ['1:0:bottom']
-panels-height = ['1:36']
-panels-hide-delay = ['1:0']
-panels-show-delay = ['1:0']
+#panel-zone-icon-sizes = '[{"panelId":1,"left":0,"center":0,"right":24}]'
+#panel-zone-symbolic-icon-sizes = '[{"panelId":1,"left":0,"center":0,"right":16}]'
+#panels-autohide = ['1:false']
+#panels-enabled = ['1:0:bottom']
+#panels-height = ['1:36']
+#panels-hide-delay = ['1:0']
+#panels-show-delay = ['1:0']
 show-snap-osd = false
 startup-animation = false
 workspace-expo-view-as-grid = true
