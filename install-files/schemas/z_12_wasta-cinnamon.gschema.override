@@ -30,20 +30,6 @@
 #   After modifying these .override files, reload with:
 #       glib-compile-schemas /usr/share/glib-2.0/schemas/
 #
-#   2018-04-04 rik: initial settings for bionic. Only backgrounds for now
-#       as all main cinnamon settings are set in wasta-cinnamon-layout
-#   2019-12-13 rik: restoring all wasta-specific cinnamon settings, as
-#       cinnamon-layout does not provide defaults anymore so that other
-#       distros can apply their own branding
-#   2020-04-12 rik: adding app-menu-label and app-menu-icon-name
-#   2020-07-07 rik: making redmond7 settings as default here
-#   2020-09-02 rik: correct panel-zone-icon-sizes for ibus (24px)
-#   2022-01-27 rik: updating desktop effects keys for cinnamon 5.2.x
-#       - add slick-greeter settings here (wasta-multidesktop does NOT assume
-#       lightdm anymore.)
-#   2022-08-25 rik: removing redundant settings as cinnamon-layout-system
-#       redmond7 is now applied as wasta default
-#
 # ==============================================================================
 
 [org.cinnamon]
@@ -52,7 +38,7 @@ app-menu-icon-name = 'wasta-linux-main-menu'
 # NOTE: app-menu-label set to '' or not via cinnamon-layout logic.
 app-menu-label = 'Menu'
 cinnamon-settings-advanced = false
-desktop-effects = false
+#desktop-effects = false
 #desktop-effects-close = 'none'
 #desktop-effects-map = 'none'
 enable-indicators = false
