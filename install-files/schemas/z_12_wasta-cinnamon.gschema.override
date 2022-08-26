@@ -77,6 +77,15 @@ disable-user-switching = true
 automount = true
 automount-open = false
 
+[org.cinnamon.desktop.peripherals.mouse]
+natural-scroll = false
+
+[org.cinnamon.desktop.peripherals.touchpad]
+disable-while-typing = true
+natural-scroll = false
+tap-to-click = true
+two-finger-scrolling-method = true
+
 [org.cinnamon.desktop.privacy]
 remember-recent-files = true
 recent-files-max-age = 30
@@ -108,27 +117,6 @@ titlebar-font = 'Ubuntu Bold 11'
 [org.cinnamon.muffin]
 edge-tiling = true
 
-[org.cinnamon.sounds]
-close-enabled = false
-login-enabled = false
-logout-enabled = false
-map-enabled = false
-maximize-enabled = false
-minimize-enabled = false
-plug-enabled = true
-plug-file = '/usr/share/sounds/freedesktop/stereo/device-added.oga'
-switch-enabled = false
-tile-enabled = false
-unmaximize-enabled = false
-unplug-enabled = true
-unplug-file = '/usr/share/sounds/freedesktop/stereo/device-removed.oga'
-
-[org.cinnamon.settings-daemon.peripherals.touchpad]
-disable-while-typing = true
-natural-scroll = false
-tap-to-click = true
-scrolling-method = 3
-
 [org.cinnamon.settings-daemon.plugins.media-keys]
 home = '<Super>e'
 
@@ -146,6 +134,21 @@ use-time-for-policy = false
 [org.cinnamon.settings-daemon.plugins.xsettings]
 buttons-have-icons = false
 menus-have-icons = true
+
+[org.cinnamon.sounds]
+close-enabled = false
+login-enabled = false
+logout-enabled = false
+map-enabled = false
+maximize-enabled = false
+minimize-enabled = false
+plug-enabled = true
+plug-file = '/usr/share/sounds/freedesktop/stereo/device-added.oga'
+switch-enabled = false
+tile-enabled = false
+unmaximize-enabled = false
+unplug-enabled = true
+unplug-file = '/usr/share/sounds/freedesktop/stereo/device-removed.oga'
 
 [org.cinnamon.theme]
 name = 'Arc-Dark-Wasta'
