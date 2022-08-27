@@ -211,28 +211,32 @@ cinnamon-layout-system $SYSTEM_LAYOUT
 # ------------------------------------------------------------------------------
 for CINN_SETTINGS in /home/*/.cinnamon;
 do
-    # get user
-    CINN_OWNER=$(stat -c '%U' "$CINN_SETTINGS")
-    CINN_OWNER_ID=$(id -u $CINN_OWNER)
-
-    # determine current user layout
-    USER_LAYOUT=$SYSTEM_LAYOUT
-    CONFIG_FILE=/home/$CINN_OWNER/.config/cinnamon-layout/current-cinnamon-layout.txt
-
-    # until cinnamon 4.0, no user config file storing current user layout
-    if [ -e $CONFIG_FILE ];
+    # confirm exists: above could be done 1 time if NO match found
+    if [ -e "$CINN_SETTINGS" ];
     then
-        USER_LAYOUT=$(cat $CONFIG_FILE)
-        echo
-        echo "*** Found existing cinnamon-layout for $CINN_OWNER: $USER_LAYOUT"
-        echo
-    fi
+        # get user
+        CINN_OWNER=$(stat -c '%U' "$CINN_SETTINGS")
+        CINN_OWNER_ID=$(id -u $CINN_OWNER)
 
-    echo
-    echo "*** Running cinnamon-layout for $CINN_OWNER to ensure settings updated for layout: $USER_LAYOUT"
-    echo
-    sudo -Hu $CINN_OWNER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$CINN_OWNER_ID/bus \
-        cinnamon-layout $USER_LAYOUT
+        # determine current user layout
+        USER_LAYOUT=$SYSTEM_LAYOUT
+        CONFIG_FILE=/home/$CINN_OWNER/.config/cinnamon-layout/current-cinnamon-layout.txt
+
+        # until cinnamon 4.0, no user config file storing current user layout
+        if [ -e $CONFIG_FILE ];
+        then
+            USER_LAYOUT=$(cat $CONFIG_FILE)
+            echo
+            echo "*** Found existing cinnamon-layout for $CINN_OWNER: $USER_LAYOUT"
+            echo
+        fi
+
+        echo
+        echo "*** Running cinnamon-layout for $CINN_OWNER to ensure settings updated for layout: $USER_LAYOUT"
+        echo
+        sudo -Hu $CINN_OWNER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$CINN_OWNER_ID/bus \
+            cinnamon-layout $USER_LAYOUT
+    fi
 done
 
 # delete: restarting cinnamon now correctly?? done by cinnamon-layout

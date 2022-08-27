@@ -84,7 +84,7 @@ natural-scroll = false
 disable-while-typing = true
 natural-scroll = false
 tap-to-click = true
-two-finger-scrolling-method = true
+two-finger-scrolling-enabled = true
 
 [org.cinnamon.desktop.privacy]
 remember-recent-files = true

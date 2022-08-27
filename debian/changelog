@@ -1,3 +1,11 @@
+wasta-cinnamon (5.4.9) jammy; urgency=medium
+
+  * wasta-cinnamon-upgrade: don't attempt running wasta-layout if
+    no /home/*/.cinnamon folders found
+  * correct two-finger-scrolling-enabled schema name
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Sat, 27 Aug 2022 14:33:45 -0500
+
 wasta-cinnamon (5.4.8) jammy; urgency=medium
 
   * minor cleanup of schema.overrides for cinnamon 5.4
