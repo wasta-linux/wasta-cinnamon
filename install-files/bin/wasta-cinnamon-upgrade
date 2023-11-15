@@ -31,7 +31,7 @@ DIR=/usr/share/wasta-cinnamon
 SERIES=$(lsb_release -sc)
 
 # if 'auto' parameter passed, run non-interactively
-if [ "$1" == "auto" ];
+if [ "${1^^}" == "AUTO" ];
 then
     AUTO="auto"
     
