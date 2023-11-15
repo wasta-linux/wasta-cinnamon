@@ -104,26 +104,29 @@ else
     fi
 fi
 
-# add Wasta-Linux Cinnamon 5.4 PPA
-PPA_FILE="$APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-5-4-$SERIES.list"
-if ! [ -e $PPA_FILE ];
+# add Wasta-Linux Cinnamon 6.0 PPA
+PPA_FILE="$APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-6-0-$SERIES"
+if ! [ -e $PPA_FILE.sources ] && ! [ -e $PPA_FILE.list ];
 then
     echo
-    echo "*** Adding Cinnamon 5.4 PPA"
+    echo "*** Adding Cinnamon 6.0 PPA"
     echo
 
-    echo "deb http://ppa.launchpadcontent.net/wasta-linux/cinnamon-5-4/ubuntu $SERIES main" | \
-        tee $PPA_FILE
-    echo "# deb-src http://ppa.launchpadcontent.net/wasta-linux/cinnamon-5-4/ubuntu $SERIES main" | \
-        tee -a $PPA_FILE
-else
-    # found, but ensure Wasta-Linux Cinnamon 5.4 PPA ACTIVE (user could have accidentally disabled)
+    echo "deb http://ppa.launchpadcontent.net/wasta-linux/cinnamon-6-0/ubuntu $SERIES main" | \
+        tee $PPA_FILE.list
+    echo "# deb-src http://ppa.launchpadcontent.net/wasta-linux/cinnamon-6-0/ubuntu $SERIES main" | \
+        tee -a $PPA_FILE.list
+elif [ -e $PPA_FILE.sources ]; then
+    # found, but ensure Wasta-Linux Cinnamon 6.0 PPA ACTIVE (user could have accidentally disabled)
+    sed -i -e '\@^Enabled: no$@d' $PPA_FILE.sources
+elif [ -e $PPA_FILE.list ]; then
+    # found, but ensure Wasta-Linux Cinnamon 6.0 PPA ACTIVE (user could have accidentally disabled)
     # DO NOT match any lines ending in #wasta
-    sed -i -e '/#wasta$/! s@.*\(deb http://ppa.launchpadcontent.net\)@\1@' $PPA_FILE
+    sed -i -e '/#wasta$/! s@.*\(deb http://ppa.launchpadcontent.net\)@\1@' $PPA_FILE.list
 fi
 
 # remove older PPAs
-#rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-5-2*
+#rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-6-0*
 
 # ------------------------------------------------------------------------------
 # Perform dist-upgrade

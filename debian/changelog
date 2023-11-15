@@ -1,3 +1,10 @@
+wasta-cinnamon (6.0.0.1) noble; urgency=medium
+
+  * switch branch to target Noble Numbat (Jammy branched off)
+  * support 24.04's use of apt .sources files as well as .list
+
+ -- Justin Luth <jluth@mail.com>  Wed, 15 Nov 2023 10:23:00 -0500
+
 wasta-cinnamon (5.4.10) jammy; urgency=medium
 
   * debian/control: add blueman as recommends
