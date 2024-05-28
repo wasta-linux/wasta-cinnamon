@@ -1,3 +1,9 @@
+wasta-cinnamon (6.0.0.2) noble; urgency=medium
+
+  * debian/control: change dependency to cinnamon-layout-6-0
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Tue, 28 May 2024 17:33:06 -0500
+
 wasta-cinnamon (6.0.0.1) noble; urgency=medium
 
   * switch branch to target Noble Numbat (Jammy branched off)

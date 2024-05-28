@@ -8,7 +8,7 @@ Homepage: https://github.com/wasta-linux/wasta-cinnamon
 
 Package: wasta-cinnamon
 Architecture: all
-Depends: arc-theme, cinnamon, cinnamon-layout-5-4, lightdm, muffin, nemo, slick-greeter, wasta-backgrounds, wasta-core, wasta-multidesktop, ${misc:Depends}
+Depends: arc-theme, cinnamon, cinnamon-layout-6-0, lightdm, muffin, nemo, slick-greeter, wasta-backgrounds, wasta-core, wasta-multidesktop, ${misc:Depends}
 Recommends: bookletimposer, gir1.2-nemo-3.0, nemo-audio-tab, nemo-compare, nemo-fileroller, nemo-image-converter
 Description: Wasta-Linux Cinnamon Tweaks
  Wasta-Linux Cinnamon core adjustments.
