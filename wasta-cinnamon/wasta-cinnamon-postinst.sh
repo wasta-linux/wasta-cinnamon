@@ -55,6 +55,20 @@ then
 fi
 
 # ------------------------------------------------------------------------------
+# xdg-mime: ensure there are reasonable file extension defaults
+# ------------------------------------------------------------------------------
+if ! [ -f /usr/share/applications/defaults.list ]; then
+  if [ -f /usr/share/applications/gnome-mimeapps.list ]; then
+    cp /usr/share/applications/{gnome-mimeapps.list,defaults.list}
+    echo
+    echo "*** Copied missing mimeapps defaults.list from gnome's list"
+    echo
+  else
+    echo "!!! WARNING: no mimeapps defaults.list !!!"
+  fi
+fi
+
+# ------------------------------------------------------------------------------
 # Dconf / Gsettings Default Value adjustments
 # ------------------------------------------------------------------------------
 echo

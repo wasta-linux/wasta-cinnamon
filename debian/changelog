@@ -1,3 +1,9 @@
+wasta-cinnamon (6.0.0.4) UNRELEASED; urgency=medium
+
+  * attempt to ensure good extension support: create defaults.list
+
+ -- Justin Luth <jluth@mail.com>  Fri, 12 Jul 2024 11:47:44 -0400
+
 wasta-cinnamon (6.0.0.3) noble; urgency=medium
 
   * wasta-cinnamon-upgrade: fix install to cinnamon-layout-6-0
