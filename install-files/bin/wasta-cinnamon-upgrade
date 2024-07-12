@@ -149,7 +149,7 @@ echo
 echo "*** Installing new Cinnamon version"
 echo
 
-$DEBIAN_NONINTERACTIVE apt-get $YES install wasta-cinnamon cinnamon-layout-5-4
+$DEBIAN_NONINTERACTIVE apt-get $YES install wasta-cinnamon cinnamon-lay6ut-6-0
 
 echo
 echo "*** Ensuring all Cinnamon components upgraded"

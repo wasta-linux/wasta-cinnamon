@@ -1,3 +1,9 @@
+wasta-cinnamon (6.0.0.3) noble; urgency=medium
+
+  * wasta-cinnamon-upgrade: fix install to cinnamon-layout-6-0
+
+ -- Justin Luth <jluth@mail.com>  Fri, 12 Jul 2024 09:37:11 -0400
+
 wasta-cinnamon (6.0.0.2) noble; urgency=medium
 
   * debian/control: change dependency to cinnamon-layout-6-0
