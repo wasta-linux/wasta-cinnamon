@@ -59,7 +59,7 @@ startup-animation = false
 workspace-expo-view-as-grid = true
 
 [org.cinnamon.desktop.background]
-picture-uri = 'file:///usr/share/backgrounds/wasta/wasta-trianglify.png'
+picture-uri = 'file:///usr/share/backgrounds/wasta/daniel-von-appen-unsplash-wasta-text-dark.jpg'
 
 [org.cinnamon.desktop.interface]
 clock-show-date = true

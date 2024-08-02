@@ -1,6 +1,12 @@
-wasta-cinnamon (6.0.0.4) UNRELEASED; urgency=medium
+wasta-cinnamon (6.0.1) ; urgency=medium
 
+  [ Justin Luth ]
   * attempt to ensure good extension support: create defaults.list
+
+  [ Rik Shaw ]
+  * update gschema.override background, cleanup wasta-cinnamon-upgrade
+    to NOT add PPA and re-install cinnamon (not needed since
+    cinnamon version coming from upstream ubu/debian repos)
 
  -- Justin Luth <jluth@mail.com>  Fri, 12 Jul 2024 11:47:44 -0400
 
