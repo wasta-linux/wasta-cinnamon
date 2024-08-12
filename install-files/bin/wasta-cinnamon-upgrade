@@ -291,7 +291,7 @@ echo
 # xargs -0: use \0 as delimiter
 grep -l -Z "/usr/share/desktop-base/\|/usr/share/backgrounds/gnome/" \
     /usr/share/gnome-background-properties/*.xml |\
-    xargs -0 -I "{}" echo "{}-wasta"
+    xargs -0 -I "{}" mv "{}" "{}-wasta"
 
 # ------------------------------------------------------------------------------
 # Finished
