@@ -133,12 +133,28 @@ fi
 #rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-6-0*
 
 # ------------------------------------------------------------------------------
-# Perform dist-upgrade
+# Install slick-greeter, apply cinnamon updates, and perform dist-upgrade
 # ------------------------------------------------------------------------------
 echo
-echo "*** Updating lists of available software"
+echo "*** Updating available software lists"
 echo
 apt-get update
+
+echo
+echo "*** Installing and configuring lightdm and slick-greeter"
+echo
+
+echo "lightdm shared/default-x-display-manager select lightdm" \
+    | debconf-set-selections --unseen
+$DEBIAN_NONINTERACTIVE apt-get $YES install --no-install-recommends \
+    lightdm slick-greeter
+
+# 24.04 lightdm bug: https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/2063983
+# in short, need to remove `splash` from grub or else risk black screen for
+# some hardware when using lightdm
+
+sed -i -e "s@[ ]*splash[ ]*@ @" /etc/default/grub
+update-grub
 
 #echo
 #echo "*** Removing old Cinnamon version"
@@ -149,11 +165,11 @@ apt-get update
 #   upgraded w/o upgraded cinnamon, easiest to just remove cinnamon first.
 #$DEBIAN_NONINTERACTIVE apt-get $YES purge cinnamon
 
-echo
-echo "*** Installing Cinnamon Layout"
-echo
+#echo
+#echo "*** Re-installing cinnamon and wasta-cinnamon"
+#echo
 
-$DEBIAN_NONINTERACTIVE apt-get $YES install wasta-cinnamon
+#$DEBIAN_NONINTERACTIVE apt-get $YES install wasta-cinnamon
 
 echo
 echo "*** Ensuring all Cinnamon components upgraded"
@@ -208,7 +224,7 @@ cinnamon-layout-system $SYSTEM_LAYOUT
 # ------------------------------------------------------------------------------
 # Ensure cinnamon-layout updates applied for all users
 # ------------------------------------------------------------------------------
-for CINN_SETTINGS in /home/*/.cinnamon;
+for CINN_SETTINGS in /home/*/.cache/cinnamon;
 do
     # confirm exists: above could be done 1 time if NO match found
     if [ -e "$CINN_SETTINGS" ];
