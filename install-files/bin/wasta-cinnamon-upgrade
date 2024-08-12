@@ -133,28 +133,12 @@ fi
 #rm -f $APT_SOURCES_D/wasta-linux-ubuntu-cinnamon-6-0*
 
 # ------------------------------------------------------------------------------
-# Install slick-greeter, apply cinnamon updates, and perform dist-upgrade
+# Aapply cinnamon updates and perform dist-upgrade
 # ------------------------------------------------------------------------------
 echo
 echo "*** Updating available software lists"
 echo
 apt-get update
-
-echo
-echo "*** Installing and configuring lightdm and slick-greeter"
-echo
-
-echo "lightdm shared/default-x-display-manager select lightdm" \
-    | debconf-set-selections --unseen
-$DEBIAN_NONINTERACTIVE apt-get $YES install --no-install-recommends \
-    lightdm slick-greeter
-
-# 24.04 lightdm bug: https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/2063983
-# in short, need to remove `splash` from grub or else risk black screen for
-# some hardware when using lightdm
-
-sed -i -e "s@[ ]*splash[ ]*@ @" /etc/default/grub
-update-grub
 
 #echo
 #echo "*** Removing old Cinnamon version"
@@ -261,9 +245,58 @@ $DEBIAN_NONINTERACTIVE apt-get $YES install --no-install-recommends \
     thunar thunar-media-tags-plugin
 
 # ------------------------------------------------------------------------------
+# installing thunar to use as bulk rename tool in nemo
+# ------------------------------------------------------------------------------
+echo
+echo "*** Installing and configuring lightdm and slick-greeter..."
+echo 
+echo "*** Choose 'lightdm' instead of gdm3 when prompted"
+echo
+
+# set lightdm as default display manager
+# rik: this is not adequate to prevent prompting
+#echo "lightdm shared/default-x-display-manager select lightdm" \
+#    | debconf-set-selections
+
+# NOT allowing DEBIAN_NONINTERACTIVE since if so it will not set lightdm
+#   as the display manager correctly
+apt-get $YES install --no-install-recommends \
+    lightdm slick-greeter
+
+# 24.04 lightdm bug: https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/2063983
+# in short, need to remove `splash` from grub or else risk black screen for
+# some hardware when using lightdm
+#
+# not enabling for all wasta-cinnamon users: hopefully we won't have too many
+#   get caught by this bug. But leaving here for reference if we do need to
+#   enable after further evaluation
+#
+#sed -i -e "s@[ ]*splash[ ]*@ @" /etc/default/grub
+#update-grub
+
+# ------------------------------------------------------------------------------
+# rename spurious *.xml background properties files to *.xml-wasta
+# ------------------------------------------------------------------------------
+echo
+echo "*** Cleaning up cinnamon desktop background selections"
+echo
+
+# In cinnamon 6.0, both gnome-backgrounds and desktop-base packages are hard
+# dependencies, these bring in many /usr/share/gnome-background-properties/ .xml
+# files which means the cinnamon desktop background selection is cluttered with
+# about 15 selection items on the left side. Not so in Cinnamon 5.4 or 6.2, so
+# this hack only needed for 24.04 with 6.0
+
+# grep -Z: output with zeros (\0) as delimiters not spaces
+# xargs -0: use \0 as delimiter
+grep -l -Z "/usr/share/desktop-base/\|/usr/share/backgrounds/gnome/" \
+    /usr/share/gnome-background-properties/*.xml |\
+    xargs -0 -I "{}" echo "{}-wasta"
+
+# ------------------------------------------------------------------------------
 # Finished
 # ------------------------------------------------------------------------------
-printf "\n\n\n\n\n\n"
+printf "\n\n\n"
 echo "========================================================================="
 echo "=== Script Finished ====================================================="
 echo "========================================================================="
