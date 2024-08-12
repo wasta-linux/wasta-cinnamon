@@ -3,8 +3,10 @@ wasta-cinnamon (6.0.2) noble; urgency=medium
   * re-work wasta-cinnamon-upgrade to install lightdm, slick-greeter
   * remove lightdm, slick-greeter from debian/control since
     can't use "no-install-recommends" there
+  * rename spurious /usr/share/gnome-background-properties/*.xml
+    files to *.xml-wasta to clean up cinnamon background selection
 
- -- Rik Shaw <rikshaw76@gmail.com>  Mon, 12 Aug 2024 12:08:50 -0500
+ -- Rik Shaw <rikshaw76@gmail.com>  Mon, 12 Aug 2024 15:28:26 -0500
 
 wasta-cinnamon (6.0.1) noble; urgency=medium
 
