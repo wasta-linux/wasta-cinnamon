@@ -165,6 +165,9 @@ custom-font = 'Ubuntu 11'
 xkb-icon-rgba = '#FFFFFF'
 use-custom-font = true
 
+[org.gnome.Terminal.Legacy.Settings]
+theme-variant = 'dark'
+
 [org.gtk.Settings.FileChooser]
 sort-directories-first = true
 
