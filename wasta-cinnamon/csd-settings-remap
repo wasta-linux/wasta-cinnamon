@@ -1,0 +1,6 @@
+#!/bin/bash
+# rik: need to override the /usr/bin/csd-settings/remap binary, since it will
+# manually set gnome theme dconf keys to match cinnamon theme dconf keys on
+# login, which makes booting back into gnome have incorrect theming
+
+exit 0

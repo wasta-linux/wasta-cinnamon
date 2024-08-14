@@ -1,3 +1,10 @@
+wasta-cinnamon (6.0.3) noble; urgency=medium
+
+  * add csd-settings-remap empty override so gnome doesn't get
+    theming overwritten with cinnamon settings
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Wed, 14 Aug 2024 10:24:06 -0500
+
 wasta-cinnamon (6.0.2) noble; urgency=medium
 
   * re-work wasta-cinnamon-upgrade to install lightdm, slick-greeter
