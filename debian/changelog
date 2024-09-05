@@ -1,3 +1,13 @@
+wasta-cinnamon (6.0.5) noble; urgency=medium
+
+  * *disable* creating of defaults.list if not present,
+    instead in 24.04 we have wasta-app-tweaks create
+    /etc/xdg/mimeapps.list and if needed for cinnamon
+    specific default overrides, can create 
+    /etc/xdg/x-cinnamon-mimeapps.list in future.
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Thu, 05 Sep 2024 16:00:23 -0500
+
 wasta-cinnamon (6.0.4) noble; urgency=medium
 
   * gschema.override: set gnome terminal to 'dark' theme
