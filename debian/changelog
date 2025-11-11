@@ -1,3 +1,9 @@
+wasta-cinnamon (6.0.6) noble; urgency=medium
+
+  * debian/control: add system-config-printer as recommends
+
+ -- Rik Shaw <rik.shaw@mailbox.org>  Wed, 05 Nov 2025 09:53:41 -0600
+
 wasta-cinnamon (6.0.5) noble; urgency=medium
 
   * *disable* creating of defaults.list if not present,
