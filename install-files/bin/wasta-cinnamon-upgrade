@@ -261,7 +261,7 @@ echo
 # NOT allowing DEBIAN_NONINTERACTIVE since if so it will not set lightdm
 #   as the display manager correctly
 apt-get $YES install --no-install-recommends \
-    lightdm slick-greeter
+    lightdm slick-greeter xserver-xorg
 
 # 24.04 lightdm bug: https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/2063983
 # in short, need to remove `splash` from grub or else risk black screen for

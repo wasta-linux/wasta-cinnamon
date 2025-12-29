@@ -1,3 +1,10 @@
+wasta-cinnamon (6.4.0) resolute; urgency=medium
+
+  * changes needed for 26.04 resolute raccoon
+  * - ensure xserver-xorg when installing lightdm
+
+ -- Justin Luth <jluth@mail.com>  Mon, 29 Dec 2025 10:23:36 -0500
+
 wasta-cinnamon (6.0.6) noble; urgency=medium
 
   * debian/control: add system-config-printer as recommends
